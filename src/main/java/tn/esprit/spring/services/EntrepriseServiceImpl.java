@@ -13,30 +13,40 @@ import java.util.List;
 
 @Service
 public class EntrepriseServiceImpl implements IEntrepriseService {
+//    @Autowired
+//    EntrepriseRepository entrepriseRepository;
+//    @Autowired
+//    EmployeRepository employeRepository;
+
+    private final EntrepriseRepository entrepriseRepository;
+    private final EmployeRepository employeRepository;
+
+    // Constructor injection
     @Autowired
-    EntrepriseRepository entrepriseRepository;
-    @Autowired
-    EmployeRepository employeRepository;
-
-
-    public double calculerMasseSalarialeEntreprise(Integer entrepriseId) {
-        Entreprise entreprise = entrepriseRepository.findById(entrepriseId)
-                .orElseThrow(() -> new RuntimeException("Entreprise non trouvée"));
-
-        double masseSalariale = 0.0;
-        List<Departement> departements = entreprise.getDepartements();
-
-        for (Departement departement : departements) {
-            List<Employe> employes = departement.getEmployes();
-            for (Employe employe : employes) {
-                if (employe.getContrat() != null) {
-                    masseSalariale += employe.getContrat().getSalaire();
-                }
-            }
-        }
-
-        return masseSalariale;
+    public EntrepriseServiceImpl(EntrepriseRepository entrepriseRepository, EmployeRepository employeRepository) {
+        this.entrepriseRepository = entrepriseRepository;
+        this.employeRepository = employeRepository;
     }
+
+
+//    public double calculerMasseSalarialeEntreprise(Integer entrepriseId) {
+//        Entreprise entreprise = entrepriseRepository.findById(entrepriseId)
+//                .orElseThrow(() -> new RuntimeException("Entreprise non trouvée"));
+//
+//        double masseSalariale = 0.0;
+//        List<Departement> departements = entreprise.getDepartements();
+//
+//        for (Departement departement : departements) {
+//            List<Employe> employes = departement.getEmployes();
+//            for (Employe employe : employes) {
+//                if (employe.getContrat() != null) {
+//                    masseSalariale += employe.getContrat().getSalaire();
+//                }
+//            }
+//        }
+//
+//        return masseSalariale;
+//    }
 
 
 
